@@ -1,0 +1,32 @@
+#Getting Started Installs
+install.packages(c("tm", "wordcloud", "NLP", "RColorBrewer", "twitteR"))
+
+library(twitteR)
+library(NLP)
+library(RColorBrewer)
+library(wordcloud)
+library(tm)
+
+setup_twitter_oauth('API Key', 'API Secret', 'Access Token', 'Access token Secret')
+#twitteR(.httr-oauth)
+
+smarthome <- searchTwitter("#smartthings", since = "2017-05-08", until = "2017-08-20", n = 100)
+smarthome_text = sapply(smarthome, function(x) x$getText())
+smarthome_corpus = Corpus(VectorSource(smarthome_text))
+
+
+tdm = TermDocumentMatrix(
+  smarthome_corpus,
+  control = list(
+    removePunctuation = TRUE,
+    stopwords = c("smartthings", stopwords("english")),
+    removeNumbers = TRUE, tolower = TRUE)
+)
+
+m = as.matrix(tdm)
+# get word counts in decreasing order
+word_freqs = sort(rowSums(m), decreasing = TRUE) 
+# create a data frame with words and their frequencies
+dm = data.frame(word = names(word_freqs), freq = word_freqs)
+
+wordcloud(dm$word, dm$freq, random.order = FALSE, colors = brewer.pal(8, "Dark2"))
