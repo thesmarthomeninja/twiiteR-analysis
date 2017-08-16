@@ -7,8 +7,9 @@ library(httr)
 library(bit64)
 library(devtools)
 
-
-setup_twitter_oauth('J5Gd3tmR3EjUdKlvDQ4dkrev4', 'kXrfyLSfLzpdgfpkSWvEz4mY3eD8O9KfceDF2QcTAkV6ArpZbz', '848487158931259392-2FZeF5aFQNe7Y7nQzero6RvfvZ7ffP6', 'PuA99W9q5jtXk24RNP0IiQsQempbdktv2QcRjlaNdbPWA')
+#remove the # and add your information and to get an api key you need to setup an api key here: https://apps.twitter.com/ 
+# and go to keys & acccess tokens tab to grab your information to put in the next line (12) here:
+#setup_twitter_oauth(consumer_key, consumer_secret, access_token=NULL, access_secret=NULL)
 #twitteR(.httr-oauth)
 
 #oauth_service_token()
@@ -36,7 +37,7 @@ followers <- do.call("rbind", lapply(followers, as.data.frame))
 
 #Next Round
 require(twitteR)
-setup_twitter_oauth('J5Gd3tmR3EjUdKlvDQ4dkrev4', 'kXrfyLSfLzpdgfpkSWvEz4mY3eD8O9KfceDF2QcTAkV6ArpZbz', '848487158931259392-2FZeF5aFQNe7Y7nQzero6RvfvZ7ffP6', 'PuA99W9q5jtXk24RNP0IiQsQempbdktv2QcRjlaNdbPWA')
+#setup_twitter_oauth(consumer_key, consumer_secret, access_token=NULL, access_secret=NULL)
 
 ######SEARCHES FUN#######
 #searchTwitter("smarthomeninja")
@@ -54,23 +55,6 @@ rdmTweets <- searchTwitter('#smartthings', n=500)
 #put that shizz in a data frame
 HashtagSearches <- do.call("rbind", lapply(rdmTweets, as.data.frame))
 
-# Note that the Twitter search API only goes back 1500 tweets (I think?)
-#Create a dataframe based around the results
-
-#Here are the columns
-#names(df)
-#And some example content
-#head(df,3)
-#View(df)
-
-#unknown turns back into values maybe?
-#usernames <- followers$screenName
-#temp_df <- twListToDF(lookupUsers(followers))
-#temp_df <- twListToDF(lookupUsers(followers))
-#temp_df <- followers(lookupUsers(screenname))
-
-
-#figure out how to bind it all onto seperate sheets
 
 
 #You can write to multiple sheets with the xlsx package. You just need to use a different sheetName for each data frame and you need to add append=TRUE:
